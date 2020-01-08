@@ -1,3 +1,5 @@
+import base64
+
 import pandas as pd
 import dash
 import dash_core_components as dcc
@@ -7,7 +9,9 @@ import dash_table
 import dash_daq as daq
 import torch
 
+
 # ======= Creation of the App & Server =======
+from GUI.read_files import read_files
 
 app = dash.Dash(
     __name__
@@ -16,7 +20,13 @@ app = dash.Dash(
 server = app.server
 
 
-# app.config["suppress_callback_exceptions"] = True
+app.config["suppress_callback_exceptions"] = True
+
+# =============
+
+# ======= Reading imagies from disc =======
+
+data = read_files()
 
 # =============
 
@@ -264,6 +274,20 @@ def visualisationsTab():
 
 # =============
 
+# ======= Infected Tab =======
+
+def infected_tab():
+    return (
+        html.Div([
+            html.Img(src='data:image/png;base64,{}'.format(base64.b64encode(open(data.loc[2,'path'], 'rb').read())))
+        ])
+    )
+
+
+# =============
+
+
+
 
 # ======= App Overview =======
 
@@ -314,11 +338,12 @@ def update_click_output(button_click, close_click):
 def render_tab_content(tab_switch):
     if tab_switch == "tab1":
         return visualisationsTab()
-    #elif tab_switch == "tab2":
-    #    return infectedTab()
+    elif tab_switch == "tab2":
+        return infected_tab()
     #elif tab_switch == "tab3":
     #    return healthyTab()
     return html.P("SOS SEND HELP")
+
 
 
 # =============
