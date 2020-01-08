@@ -4,6 +4,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_table
+import dash_daq as daq
+import torch
 
 # ======= Creation of the App & Server =======
 
@@ -34,10 +36,10 @@ def createBanner():
                 ],
             ),
             html.Div(
-                id="banner-logo",
+                id="logo",
                 children=[
                     html.Button(
-                        id="learn-more-button", children="LEARN MORE", n_clicks=0
+                        id="Help_button", children="HELP", n_clicks=0
                     ),
                     html.Img(id="logo", src=app.get_asset_url("dash-logo-new.png")),
                 ],
@@ -117,30 +119,23 @@ def createTabs():
                 className="tabsStyles",
                 children=[
                     dcc.Tab(
-                        id="fileTab",
-                        label="File Selection",
-                        value="tab1",
-                        className="tabsStyle",
-                        selected_className="custom-tab--selected",
-                    ),
-                    dcc.Tab(
                         id="mainTab",
                         label="Visualisations",
-                        value="tab2",
+                        value="tab1",
                         className="tabsStyle",
                         selected_className="custom-tab--selected",
                     ),
                     dcc.Tab(
                         id="infectedTab",
                         label="Images of Infected Leaves",
-                        value="tab3",
+                        value="tab2",
                         className="tabsStyle",
                         selected_className="custom-tab--selected",
                     ),
                     dcc.Tab(
                         id="healthyTab",
                         label="Images of Healthy Leaves",
-                        value="tab4",
+                        value="tab3",
                         className="tabsStyle",  # when not hovering over tab
                         selected_className="custom-tab--selected",  # when hovering over tab
                     ),
@@ -152,34 +147,62 @@ def createTabs():
 
 # =============
 
-# ======= Input Test Files Tab =======
 
-def fileTab():
-    return (
-        html.Div([
-            dcc.Upload(
-                id='upload-data',
-                children=html.Div([
-                    'Drag and Drop or ',
-                    html.A('Select Files')
-                ]),
-                style={
-                    'width': '100%',
-                    'height': '60px',
-                    'lineHeight': '60px',
-                    'borderWidth': '1px',
-                    'borderStyle': 'dashed',
-                    'borderRadius': '5px',
-                    'textAlign': 'center',
-                    'margin': '10px'
-                },
-                # Allow multiple files to be uploaded
-                multiple=True
+
+# ======= Grid Visualisations Tab =======
+
+def countDiv():
+    return html.Div(
+
+        id = 'countDiv',
+        className = 'countDiv',
+        children = [
+            html.Div(
+                id = 'countBanner',
+                className = 'countBanner',
+                children = "Number of Infected Leaves Per Plant Type"
             ),
-            html.Div(id='output-data-upload')
-        ])
+
+            html.Div(
+                id = 'countList',
+                className = 'countList',
+                children=[
+                    html.Div(
+                        id = 'countDiv',
+                        className = 'countDiv',
+                        children=[
+                            html.P("# Bacterial Spots"),
+                            daq.LEDDisplay(
+                                id="countDisplay",
+                                value = 17,
+                                color = '#FFFFFF',
+                                backgroundColor="#000000",
+                                size=50
+                            )
+                        ]
+
+                    )
+                ]
+            )
+        ]
     )
 
+def probChart():
+    return html.Div(
+
+        )
+
+
+def pieChart():
+    return html.Div(
+
+        )
+
+
+def barChart():
+    return html.Div(
+
+        )
 
 # =============
 
@@ -187,8 +210,14 @@ def fileTab():
 
 def visualisationsTab():
     return (
-        html.Div([
-            html.P("YEEEEET BOIIIIII")
+        html.Div(
+            id = 'visualisationPage',
+            className = 'visualisationPage',
+            children = [
+            countDiv(),
+            probChart(),
+            barChart(),
+            pieChart()
         ])
     )
 
@@ -222,14 +251,14 @@ app.layout = html.Div(
 
 @app.callback(
     Output("markdown", "style"),
-    [Input("learn-more-button", "n_clicks"), Input("markdown_close", "n_clicks")],
+    [Input("Help_button", "n_clicks"), Input("markdown_close", "n_clicks")],
 )
 def update_click_output(button_click, close_click):
     ctx = dash.callback_context
 
     if ctx.triggered:
         prop_id = ctx.triggered[0]["prop_id"].split(".")[0]
-        if prop_id == "learn-more-button":
+        if prop_id == "Help_button":
             return {"display": "block"}
 
     return {"display": "none"}
@@ -244,9 +273,11 @@ def update_click_output(button_click, close_click):
               )
 def render_tab_content(tab_switch):
     if tab_switch == "tab1":
-        return fileTab()
-    elif tab_switch == "tab2":
         return visualisationsTab()
+    #elif tab_switch == "tab2":
+    #    return infectedTab()
+    #elif tab_switch == "tab3":
+    #    return healthyTab()
     return html.P("SOS SEND HELP")
 
 
@@ -256,3 +287,5 @@ def render_tab_content(tab_switch):
 
 if __name__ == "__main__":
     app.run_server(debug=True, port=8050)
+
+# =============
