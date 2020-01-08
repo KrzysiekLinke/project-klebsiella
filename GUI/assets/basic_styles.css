@@ -1,0 +1,12 @@
+body{
+    margin : 0;
+    background-color: #bdf0e7;
+}
+
+#tabs {
+    width: 100%;
+}
+
+#fileTab.tabsStyle, #mainTab.tabsStyle, #infectedTab.tabsStyle, #healthyTab.tabsStyle {
+  background-color: #3edec3;
+}
