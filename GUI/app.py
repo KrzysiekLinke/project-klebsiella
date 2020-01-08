@@ -10,8 +10,7 @@ import torch
 # ======= Creation of the App & Server =======
 
 app = dash.Dash(
-    __name__,
-    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
+    __name__
 )
 
 server = app.server
@@ -25,18 +24,18 @@ server = app.server
 
 def createBanner():
     return html.Div(
-        id="banner",
-        className="bannerClass",
+        id="dssBanner",
+        className="dssBanner",
         children=[
             html.Div(
-                id="banner-text",
+                id="bannerText",
                 children=[
                     html.H5("Plant Village DSS"),
                     html.H6("Predicting Infection on Leaves"),
                 ],
             ),
             html.Div(
-                id="logo",
+                id="dssLogo",
                 children=[
                     html.Button(
                         id="Help_button", children="HELP", n_clicks=0
@@ -190,17 +189,58 @@ def countDiv():
 def probChart():
     return html.Div(
 
+        dcc.Graph(
+            id='probGraph',
+            figure={
+                'data': [
+                    {'x': ['0-10', '10-20', '20-30', '30-40', '40-50', '50-60', '60-70', '70-80', '80-90', '90-100'],
+                     'y': [5,5,5,5,5,5,5,5,5,5],
+                     'type': 'bar', 'name': 'probGraph'},
+
+                ],
+                'layout': {
+                    'title': 'Probability Plot Model Result'
+                }
+            }
         )
-
-
-def pieChart():
-    return html.Div(
-
-        )
-
+    )
 
 def barChart():
     return html.Div(
+
+        dcc.Graph(
+            id='barChart',
+            figure={
+                'data': [
+                    {'x': ['Healthy', 'Infected'],
+                     'y': [5,5],
+                     'type': 'bar', 'name': 'probGraph'},
+
+                ],
+                'layout': {
+                    'title': 'Bar Plot # Infected Leaves'
+                }
+            }
+        )
+    )
+
+def pieChart():
+    return html.Div(
+        dcc.Graph(
+            id='pieChart',
+            figure={
+                'data': [
+                    {'labels': ['Healthy', 'Infected'],
+                     'values': [0.5, 0.5],
+                     'type': 'pie', 'name': 'probGraph'},
+
+                ],
+                'layout': {
+                    'title': 'PieChart Distribution Infected Leaves'
+                }
+            }
+        )
+
 
         )
 
