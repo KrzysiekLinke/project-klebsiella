@@ -26,7 +26,7 @@ from numpy import save
 #If downloaded_boolean == True
 #pathSaved = "C:\\Users\\Joep\\Documents\\VU\Pobp"
 
-def read_process_data(boolean, path_name, picklePath):
+def read_process_data(boolean, path_name, pathToSave):
     if boolean == False:
         path = str(path_name) + "/*"
         size = (32, 32)
@@ -53,7 +53,7 @@ def read_process_data(boolean, path_name, picklePath):
                 print("Reading folder: ", subfolder)
                 for image_path in glob.glob(subfolder):
                     #print(image_path)
-                    im = Image.open(image_path)
+                    #im = Image.open(image_path)
                     img=image.load_img(image_path, target_size=size)
                     x=image.img_to_array(img)
                     x=x.flatten()
@@ -75,8 +75,8 @@ def read_process_data(boolean, path_name, picklePath):
         labels = (np.append(infected_label, healthy_label))
 
         #Save dataframes to pickle
-        dataset.to_pickle(str(picklePath) + "/Processed_data.pkl")
-        labels.tofile((str(picklePath) + "/Processed_labels.csv"))
+        dataset.to_pickle(str(pathToSave) + "/Processed_data.pkl")
+        labels.tofile((str(pathToSave) + "/Processed_labels.csv"))
 
     else:
         dataset = pd.read_pickle(str(path_name) + "/Processed_data.pkl")
