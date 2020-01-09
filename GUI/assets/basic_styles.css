@@ -27,11 +27,13 @@ width:10%;
     border-width: 5px;
     border-radius:50px;
     padding: 10px 32px;   /*Deze maat nog aanpassen*/
+    outline:0;
 }
 
 .helpButton:hover {
     background-color: #FFFFFF;
 }
+
 
 #dssBanner{
     text-align: center;
@@ -126,7 +128,7 @@ width:10%;
   font-weight: normal;
   float: right;
   height: 100%;
-
+  outline:0;
 }
 
 .closeButton:hover {
