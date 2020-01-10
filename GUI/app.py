@@ -388,8 +388,8 @@ def update_click_output(button_click, close_click):
 @app.callback(Output("tabContent", "children"),
               [Input("tabList", "value")]
               )
-def render_tab_content(tab_switch):
-    if tab_switch == "mainTab":
+def render_tab_content(switchTab):
+    if switchTab == "mainTab":
         return visualisationsTab()
     #elif tab_switch == "tab2":
     #    return infectedTab()
