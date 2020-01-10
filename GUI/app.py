@@ -352,7 +352,6 @@ app.layout = html.Div(
             id="divContainer",
             children=[
                 createTabs(),
-                # Main app
                 html.Div(id="tabContent"),
             ],
         ),

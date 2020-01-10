@@ -26,27 +26,16 @@ body{
 }
 
 .faqButton {
-    /*background-color: #DFE1DE;   Comments weghalen voor oude stijl
-    font-family: Fixed,monospace;
+    font-family: sans-serif;
     font-weight: bold;
-    outline: 0;
     padding: 10px 26px;
-    color: black;
-    text-align: center;
-    border-style: double;
-    border-color: black;
-    border-width: 5px;
-    border-radius: 50px;*/
-    font-family: sans-serif; /*deze weghalen als je de oude versie wilt hebben*/
-    font-weight: bold;       /*deze weghalen als je de oude versie wilt hebben*/
-    padding: 10px 26px;     /*heb de grote iets veranderd*/
     outline: 0;
 }
 
 .faqButton:hover {
     background-color: #EFEFEF;
-    border-color: #C8C8C8;/*deze weghalen als je de oude versie wilt hebben*/
-    border-style: solid; /*deze weghalen als je de oude versie wilt hebben*/
+    border-color: #C8C8C8;
+    border-style: solid;
 }
 
 /*=========*/
@@ -94,9 +83,9 @@ body{
   border-radius: 40px;
   left: 15%;
   top: 0;
-  width: 1000px; /* Full width */
-  height: 550px; /* Full height */
-  background-color: #F3CE93; /* Fallback color */
+  width: 1000px;
+  height: 550px;
+  background-color: #F3CE93;
 }
 
 #modalText{
@@ -117,10 +106,6 @@ body{
 /* =====Close Button===== */
 
 .closeButton {
-  /*border-style:double; Comments weghalen voor oude stijl
-  border-color:#000000;
-  border-width: 5px;
-  border-radius:40px;*/
   padding-left: 15px;
   padding-right: 15px;
   float: right;
@@ -130,8 +115,8 @@ body{
 
 .closeButton:hover {
   background-color: #EFEFEF;
-  border-color: #C8C8C8; /*Deze weghalen voor oude stijl*/
-  border-style: solid; /*Deze weghalen voor oude stijl*/
+  border-color: #C8C8C8;
+  border-style: solid;
 }
 
 /*=========*/
