@@ -4,151 +4,151 @@ body{
 }
 
 /* =========BANNER========= */
-#dssLogo{
-float:left;
-margin-top:17px;
-width:10%;
-}
-
-
-#dssFAQ {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.helpButton {
-    background-color: #DFE1DE;
-    font-family: Fixed,monospace;
-    color: black;
-    font-weight:bold;
-    text-align:center;
-    border-style: double;
-    border-color: black;
-    border-width: 5px;
-    border-radius:50px;
-    padding: 10px 32px;   /*Deze maat nog aanpassen*/
-    outline:0;
-}
-
-.helpButton:hover {
-    background-color: #FFFFFF;
-}
-
 
 #dssBanner{
     text-align: center;
 }
 
+#dssLogo{
+    width: 10%;
+    float: left;
+    margin-top: 17px;
+}
+
 #bannerText{
-    display: inline-block;
     width: 80%;
-    color:
+    display: inline-block;
 }
 
 #dssFAQ{
-    display: inline-block;
     width: 10%;
+    display: inline-block;
 }
 
+.faqButton {
+    /*background-color: #DFE1DE;   Comments weghalen voor oude stijl
+    font-family: Fixed,monospace;
+    font-weight: bold;
+    outline: 0;
+    padding: 10px 26px;
+    color: black;
+    text-align: center;
+    border-style: double;
+    border-color: black;
+    border-width: 5px;
+    border-radius: 50px;*/
+    font-family: sans-serif; /*deze weghalen als je de oude versie wilt hebben*/
+    font-weight: bold;       /*deze weghalen als je de oude versie wilt hebben*/
+    padding: 10px 26px;     /*heb de grote iets veranderd*/
+    outline: 0;
+}
 
-/*========================*/
+.faqButton:hover {
+    background-color: #EFEFEF;
+    border-color: #C8C8C8;/*deze weghalen als je de oude versie wilt hebben*/
+    border-style: solid; /*deze weghalen als je de oude versie wilt hebben*/
+}
+
+/*=========*/
 
 /* =========TABS========= */
 
-#tabs {
+#tabsDiv {
     width: 100%;
-
 }
 
-#fileTab.tabsStyle, #mainTab.tabsStyle, #infectedTab.tabsStyle, #healthyTab.tabsStyle {
+#mainTab.tabStyle, #infectedTab.tabStyle, #healthyTab.tabStyle {
+    width: 32%;
     background-color: #BAFE98;
     border-color: #5D8844;
     border-width: 5px;
     border-radius:40px;
     border-style: solid;
     color: black;
-    font-size:19px;
-    font-weight:bold;
-    width: 30%;
-    margin:30px;
+    font-size: 19px;
+    font-weight: bold;
+    margin: 25px;
+
 }
 
-#fileTab.tabsStyle:hover, #mainTab.tabsStyle:hover, #infectedTab.tabsStyle:hover, #healthyTab.tabsStyle:hover{
-    /*background-color:#F3CE93;*/
+#mainTab.tabStyle:hover, #infectedTab.tabStyle:hover, #healthyTab.tabStyle:hover{
     border-color: #915203;
 }
 
-#fileTab.selectedTab, #mainTab.selectedTab, #infectedTab.selectedTab, #healthyTab.selectedTab{
+#mainTab.selectedTab, #infectedTab.selectedTab, #healthyTab.selectedTab{
     background-color: #E4FED7;
 }
 
-/*========================*/
+/*=========*/
 
 /* =========MODAL========= */
 
-
 #modal {
-  margin-top:60px;
+  margin-top: 60px;
   display: none;
   position: fixed;
   z-index: 1;
-  border-style:double;
+  border-style: double;
   border-color: #000000;
   border-width: 5px;
-  border-radius:40px;
+  border-radius: 40px;
   left: 15%;
-  top:0;
+  top: 0;
   width: 1000px; /* Full width */
   height: 550px; /* Full height */
-  background-color:#F3CE93; /* Fallback color */
+  background-color: #F3CE93; /* Fallback color */
 }
 
 #modalText{
     margin-top: 35px;
-    padding-left:50px;
-    padding-right:50px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 
-.close-container {
+.modalButtonContainer {
   width: 20%;
-  float:right;
-  margin: 0;
+  float: right;
   height: 40px;
-  margin-right:20px;
-  margin-top:15px;
+  margin-right: 20px;
+  margin-top: 15px;
 }
+
+/* =====Close Button===== */
 
 .closeButton {
-  border-style:double;
+  /*border-style:double; Comments weghalen voor oude stijl
   border-color:#000000;
   border-width: 5px;
-  border-radius:40px;
-  padding: 0 15px;
-  font-weight: normal;
+  border-radius:40px;*/
+  padding-left: 15px;
+  padding-right: 15px;
   float: right;
   height: 100%;
-  outline:0;
+  outline: 0;
 }
 
 .closeButton:hover {
-  background-color: #FFFFFF;
+  background-color: #EFEFEF;
+  border-color: #C8C8C8; /*Deze weghalen voor oude stijl*/
+  border-style: solid; /*Deze weghalen voor oude stijl*/
 }
 
-
-/*========================*/
+/*=========*/
 
 /* =========VISUALISATIONS TAB========= */
+
+/* =====Count Div===== */
 
 #countDiv{
     width: 35%;
     height: 400px;
-    float:left;
-    overflow:hidden;
-    text-align:center;
-    line-height:45px;
-    margin:0;
-    margin-top:30px;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+    line-height: 45px;
+    margin: 0;
+    margin-top: 30px;
 }
 
 #firstTextCountDiv{
@@ -160,53 +160,64 @@ width:10%;
 #secondTextCountDiv{
     color: #373936;
     font-size: 25px;
-    font-family: ;
+    font-family: Arial,sans-serif ;
 }
 
 #countDisplay{
-    display:inline-block;
+    display: inline-block;
     margin-left: 15px;
     margin-right: 25px;
 }
 
 #countDisplayPercentage{
-    display:inline-block;
+    display: inline-block;
 }
+
+/*=========*/
+
+/* =====Probability Graph Div===== */
 
 #probDiv{
     width : 65%;
-    display:inline-block;
-    margin:0;
-    margin-top:20px;
+    display: inline-block;
+    margin: 0;
+    margin-top: 20px;
 }
 
 #probGraph{
     width : 100%;
     height: 100%;
-    font-weight:bold;
+    font-weight: bold;
 }
 
+/*=========*/
+
+/* =====Bar Graph Div===== */
+
 #barDiv{
-    width:60%;
-    height:400px;
+    width: 60%;
+    height: 400px;
     margin-top: 5px;
-    display:inline-block;
+    display: inline-block;
 }
 
 #barChart{
-    width:100%;
-    height:400px;
+    width: 100%;
+    height: 400px;
 }
+/*=========*/
+
+/* =====PieChart Div===== */
 
 #pieDiv{
-    width:40%;
-    height:400px;
-    display:inline-block;
+    width: 40%;
+    height: 400px;
+    display: inline-block;
 }
 
 #pieChart{
-    width:100%;
-    height:400px;
+    width: 100%;
+    height: 400px;
 }
 
-/*========================*/
+/*=========*/
