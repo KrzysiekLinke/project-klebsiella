@@ -1,16 +1,15 @@
 import base64
+from io import BytesIO
 
-import pandas as pd
 import dash
 import dash_core_components as dcc
-import dash_html_components as html
-from dash.dependencies import Input, Output, State
-import dash_table
 import dash_daq as daq
-import torch
-
+import dash_html_components as html
+from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 
 # ======= Creation of the App & Server =======
+from GUI.prepaireTable import prepaireTable
 from GUI.read_files import read_files
 
 app = dash.Dash(
@@ -27,6 +26,8 @@ app.config["suppress_callback_exceptions"] = True
 # ======= Reading imagies from disc =======
 
 data = read_files()
+
+infectedTab = prepaireTable(data,app)
 
 # =============
 
@@ -279,10 +280,16 @@ def visualisationsTab():
 def infected_tab():
     return (
         html.Div([
-            html.Img(src='data:image/png;base64,{}'.format(base64.b64encode(open(data.loc[2,'path'], 'rb').read())))
-        ])
+            # dbc.Table.from_dataframe(
+            #     data
+            # )
+            dbc.Table(infectedTab,
+                      id='infectedTable',
+                      className='infectedTable',
+                      )
+            ],
+        style = {'align':'centre','marginRight':'auto','marginLeft':'auto','marginTop':'20px'})
     )
-
 
 # =============
 
