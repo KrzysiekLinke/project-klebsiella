@@ -27,7 +27,9 @@ app.config["suppress_callback_exceptions"] = True
 
 data = read_files()
 
-infectedTab = prepaireTable(data,app)
+data['isInfectedFlag'] = [0,1,0,0,0,1,1,1,0]
+
+infectedDF, healthyDF = prepaireTable(data,app)
 
 
 # =============
@@ -354,10 +356,10 @@ def pieChart():
 
 # ======= Infected Tab =======
 
-def infected_tab():
+def infectedTab():
     return (
         html.Div([
-            dbc.Table(infectedTab,
+            dbc.Table(infectedDF,
                 id='infectedTable',
                 className='infectedTable',
                 )
@@ -369,15 +371,15 @@ def infected_tab():
 
 # ======= Healthy Tab =======
 
-def healthy_tab():
+def healthyTab():
     return (
         html.Div([
-            dbc.Table(infectedTab,
+            dbc.Table(healthyDF,
                 id='healthyTable',
                 className='healthyTable',
                 )
             ],
-        style = {'align':'centre','marginRight':'auto','marginLeft':'auto','marginTop':'20px'})
+        style = {'align':'centre','marginRight':'50','marginLeft':'50','marginTop':'20px'})
     )
 
 # =============
@@ -433,9 +435,9 @@ def render_tab_content(switchTab):
     if switchTab == "mainTab":
         return visualisationsTab()
     elif switchTab == "infectedTab":
-        return infected_tab()
-    #elif switchTab == "healthyTab":
-    #    return healthyTab()
+        return infectedTab()
+    elif switchTab == "healthyTab":
+        return healthyTab()
     return html.P("SOS SEND HELP")
 
 
