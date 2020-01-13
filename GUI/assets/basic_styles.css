@@ -46,7 +46,7 @@ body{
     width: 100%;
 }
 
-#mainTab.tabStyle, #infectedTab.tabStyle, #healthyTab.tabStyle {
+#mainTab.tabStyle, #infectedTab.tabStyle, #healthyTab.tabStyle, #fileSelectionTab.tabStyle{
     width: 32%;
     background-color: #BAFE98;
     border-color: #5D8844;
@@ -60,11 +60,11 @@ body{
 
 }
 
-#mainTab.tabStyle:hover, #infectedTab.tabStyle:hover, #healthyTab.tabStyle:hover{
+#mainTab.tabStyle:hover, #infectedTab.tabStyle:hover, #healthyTab.tabStyle:hover, #fileSelectionTab.tabStyle:hover{
     border-color: #915203;
 }
 
-#mainTab.selectedTab, #infectedTab.selectedTab, #healthyTab.selectedTab{
+#mainTab.selectedTab, #infectedTab.selectedTab, #healthyTab.selectedTab, #fileSelectionTab.selectedTab{
     background-color: #E4FED7;
 }
 
@@ -208,7 +208,7 @@ body{
 /*=========*/
 
 
-/* Table */
+/* =====Table Div===== */
 .infectedTable, .healthyTable{
   border-collapse: collapse;
   text-align: centre;
@@ -224,3 +224,52 @@ td, th {
   padding: 0.5rem;
   font: 15px arial, sans-serif;}
 
+ /*=========*/
+
+ /* =====Lower Banner===== */
+
+#dssLowerBanner{
+    margin-top: 50px;
+    text-align: center;
+    background-image: url("LeafImageBackground.jpeg");
+    font-weight: bold;
+}
+
+#assignment{
+    width: 250px;
+    float: left;
+    margin-top: 50px;
+    margin-left: 50px;
+    background-color: #BAFE98;
+    border-color: #5D8844;
+    border-radius:40px;
+    border-style: solid;
+    font-size: 20px;
+}
+
+#group{
+    width: 20%;
+    display: inline-block;
+    margin-top: 8px;
+    margin-right: 50px;
+    background-color: #BAFE98;
+    border-color: #5D8844;
+    border-radius:40px;
+    border-style: solid;
+    border-width: 5px;
+
+}
+
+#groupNumber{
+    font-size: 2em;
+}
+
+#powerButtonDiv{
+    width: 10%;
+    height: 100px;
+    float: right;
+    margin-top: 50px;
+    margin-right: 50px;
+}
+
+/*=========*/
