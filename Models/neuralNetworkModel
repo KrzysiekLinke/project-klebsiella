@@ -1,0 +1,40 @@
+import torch.nn as nn
+
+class makeNeuralNet(nn.Module):
+    def     __init__(self):
+        super(makeNeuralNet, self).__init__()
+        kernelSize = (3,3)
+        self.layer_1 = nn.Conv2d(in_channels = 3, out_channels = 32, kernel_size = kernelSize, stride=1, padding=1)
+        self.pool_1 = nn.MaxPool2d(kernel_size = kernelSize, stride = 2, padding = 1)
+
+        self.layer_2 = nn.Conv2d(in_channels = 32, out_channels = 64, kernel_size = kernelSize, stride=1, padding=1)
+        self.pool_2 = nn.MaxPool2d(kernel_size = kernelSize, stride = 2, padding = 1)
+
+        self.layer_3 = nn.Conv2d(in_channels = 64, out_channels = 128, kernel_size = kernelSize, stride=1, padding=1)
+        self.pool_3 = nn.MaxPool2d(kernel_size = kernelSize, stride = 2, padding = 1)
+
+        self.layer_4a = nn.Conv2d(in_channels = 128, out_channels = 256, kernel_size = kernelSize, stride=1, padding=1)
+        self.layer_4b = nn.Conv2d(in_channels=256, out_channels=256, kernel_size=kernelSize, stride=1, padding=1)
+        self.pool_4 = nn.MaxPool2d(kernel_size = kernelSize, stride = 2, padding = 1)
+
+        self.layer_5a = nn.Conv2d(in_channels = 256, out_channels = 512, kernel_size = kernelSize, stride=1, padding=1)
+        self.layer_5b = nn.Conv2d(in_channels=512, out_channels=512, kernel_size=kernelSize, stride=1, padding=1)
+        self.pool_5 = nn.MaxPool2d(kernel_size = kernelSize, stride = 2, padding = 1)
+
+        self.average_pool = nn.AvgPool2d(kernel_size = (1,1), stride = 1, padding = 0)
+        self.linear = nn.Linear(in_features = 512, out_features = 15)
+        self.batch_norm = nn.BatchNorm2d(num_features=15)
+        self.relu = nn.ReLU()
+
+    def forward(self,picture):
+        picture_layer_1 = self.pool_1(self.layer_1(picture))
+        picture_layer_2 = self.pool_2(self.layer_2(picture_layer_1))
+        picture_layer_3 = self.pool_3(self.layer_3(picture_layer_2))
+        picture_layer_4 = self.pool_4(self.layer_4b(self.layer_4a(picture_layer_3)))
+        picture_layer_5 = self.pool_5(self.layer_5b(self.layer_5a(picture_layer_4)))
+        picture_final_layer = self.linear(self.average_pool(picture_layer_5))
+
+        return self.relu(self.batch_norm(picture_final_layer))
+
+
+
