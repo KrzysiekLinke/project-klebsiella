@@ -46,7 +46,7 @@ def computeBackend(pathTestFolder):
     modelOutput = predictInfection(pathTestFolder)
 
     dataDF['isInfectedPercentage'], dataDF['isInfectedFlag'] = modelOutput
-    dataDF['id'] = dataDF['id].astype(int) + 1
+    dataDF['id'] = dataDF['id'].astype(int) + 1
 
     ranges = np.linspace(-0.000000000000000001, 1, 11)
 
