@@ -1,5 +1,5 @@
 import subprocess, sys
-subprocess.check_call([sys.executable, "-m", "pip", "install", "dash", "dash_daq", "dash-bootstrap-components", "keras", "tensorflow", "torch"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "dash", "dash_daq", "dash-bootstrap-components", "keras", "tensorflow"])
 subprocess.check_call([sys.executable, "-m", "pip", "install", "scipy", "--upgrade"])
 
 import pandas as pd
