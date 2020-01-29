@@ -18,8 +18,6 @@ def prepareTable(df,directory):
 
 def makeTable(inputDF, infected):
 
-    inputDF['id'] = inputDF['id']+1
-
     if infected:
         table_header = [
             html.Thead(html.Tr([html.Th("ID"), html.Th("Leaf"), html.Th("Probability of having Bacterial Spots")]))
