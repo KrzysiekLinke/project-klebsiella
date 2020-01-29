@@ -434,7 +434,7 @@ def appContainer(pathTestFolder, error):
     global data, pdDF, infectedDF, healthyDF, dataset, lossList
     data, pdDF, infectedDF, healthyDF, error2, error3 = computeBackend(pathTestFolder)
     dataset = pd.read_pickle("Prescriptive_data_nn.pkl")
-    lossList = pd.read_pickle("TL_chart")
+    lossList = pd.read_pickle("TL_chart.pkl")
 
 
     return (
