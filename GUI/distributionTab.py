@@ -227,7 +227,7 @@ def modelSummary(lossList):
                     daq.LEDDisplay(
                         id="countDisplayModelAccuracy",
                         className='countDisplayModelAccuracy',
-                        value=0.96,
+                        value=0.97,
                         color='#FFFFFF',
                         backgroundColor="#0069A9",
                         size=50,
@@ -245,7 +245,7 @@ def modelSummary(lossList):
                     daq.LEDDisplay(
                         id="countDisplayModelPrecision",
                         className='countDisplayModelPrecision',
-                        value=0.92,
+                        value=0.97,
                         color='#FFFFFF',
                         backgroundColor="#0069A9",
                         size=50,
@@ -262,7 +262,7 @@ def modelSummary(lossList):
                     daq.LEDDisplay(
                         id="countDisplayModelRecall",
                         className='countDisplayModelRecall',
-                        value=0.81,
+                        value=0.97,
                         color='#FFFFFF',
                         backgroundColor="#0069A9",
                         size=50,
@@ -348,7 +348,7 @@ def modelSummary(lossList):
                                     'title' : 'Precision',
                                     'type': 'linear',
                                     'autorange': False,
-                                    'range': [-0.1, 3 ],
+                                    'range': [-0.1, 1.1 ],
                                     'fixedrange': True
                                 }
                             }
