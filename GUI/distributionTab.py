@@ -1,13 +1,11 @@
-import dash
+
 import dash_core_components as dcc
 import dash_daq as daq
 import dash_html_components as html
-from dash.dependencies import Input, Output
-import dash_bootstrap_components as dbc
-import pandas as pd
 import plotly.graph_objects as go
+import numpy as np
 
-def distributionTab(dataset):
+def distributionTab(dataset,lossList):
     return (
         html.Div(
             id = 'distributionPage',
@@ -15,7 +13,9 @@ def distributionTab(dataset):
             children = [
                 countDiv(dataset),
                 barChart(dataset),
-                pieChart(dataset)
+                pieChart(dataset),
+                html.Hr(),
+                modelSummary(lossList)
             ]
         )
     )
@@ -36,12 +36,7 @@ def countDiv(dataset):
                             html.Div(
                                 id = 'firstTextCountDivDist',
                                 className = 'firstTextCountDivDist',
-                                children = ['Number of Bacterial Spots']
-                            ),
-                            html.Div(
-                                id='secondTextCountDivDist',
-                                className='secondTextCountDivDist',
-                                children='Count'
+                                children = ['Number of Leaves with Bacterial Spots']
                             ),
                             daq.LEDDisplay(
                                 id="countDisplayDist",
@@ -50,7 +45,14 @@ def countDiv(dataset):
                                 color = '#FFFFFF',
                                 backgroundColor="#0069A9",
                                 size=50,
-                                label = 'Number',
+                                label = {
+                                    "label": "Number",
+                                    "style":{
+                                        "font-size":"18px",
+                                        "color": "#373936",
+                                        "font-weight": "bold",
+                                    }
+                                },
                             ),
                             daq.LEDDisplay(
                                 id="countDisplayPercentageDist",
@@ -59,7 +61,14 @@ def countDiv(dataset):
                                 color='#FFFFFF',
                                 backgroundColor="#0069A9",
                                 size=50,
-                                label = 'Percentage'
+                                label = {
+                                    "label": "Probability",
+                                    "style":{
+                                        "font-size":"18px",
+                                        "color": "#373936",
+                                        "font-weight": "bold"
+                                    }
+                                }
                             )
                         ]
                     )
@@ -84,13 +93,13 @@ def barChart(dataset):
                 'data': [
                     {'x': [plantTypeList[0], plantTypeList[1], plantTypeList[2]],
                      'y': [len(df1) - df1["Label"].sum(), len(df2) - df2["Label"].sum(), len(df3) - df3["Label"].sum()],
-                     'type': 'bar', 'name': "Healhy"},
+                     'type': 'bar', 'name': "Non-Bacterial"},
                     {'x': [plantTypeList[0], plantTypeList[1], plantTypeList[2]],
                      'y': [df1["Label"].sum(), df2["Label"].sum(), df3["Label"].sum()],
-                     'type': 'bar', 'name': 'Infected'},
+                     'type': 'bar', 'name': 'Bacterial'},
                 ],
                 'layout': {
-                    'title': 'Bar Plot Counting The Number Of Infected Leaves',
+                    'title': 'Distribution of the Leaves with Bacterial Spots',
                     'xaxis': {
                         'title': 'Predicted Values Images'
                     },
@@ -138,10 +147,10 @@ def pieChart(dataset):
                 'data': [
                     {'labels': sorted(df1["ClassName"].unique()),
                      'values': sum1,
-                     'type': 'pie', 'name': 'probGraph'},
+                     'type': 'pie', 'name': 'pieChartDist'},
                 ],
                 'layout': {
-                    'title': 'PieChart Pepperbell',
+                    'title': 'Distribution Pepperbell Plant',
                     "titlefont": {
                         "size": 30
                     },
@@ -162,7 +171,7 @@ def pieChart(dataset):
                          'type': 'pie', 'name': 'probGraph'},
                     ],
                     'layout': {
-                        'title': 'PieChart Potato',
+                        'title': 'Distribution Potato Plant',
                         "titlefont": {
                             "size": 30
                         },
@@ -183,7 +192,7 @@ def pieChart(dataset):
                          'type': 'pie', 'name': 'probGraph'},
                     ],
                     'layout': {
-                        'title': 'PieChart Tomato',
+                        'title': 'Distribution Tomato Plant',
                         "titlefont": {
                             "size": 30
                         },
@@ -191,16 +200,165 @@ def pieChart(dataset):
                         'font': {
                             'color': '#373936'
                         },
-                        'legend' : go.layout.Legend(
-                        x=1,
-                        y=1,
-                        )
+
                     }
                 }
             ),
+        ]
+    )
+
+def modelSummary(lossList):
+
+    return html.Div(
+
+        id='modelSummaryDiv',
+        className='modelSummaryDiv',
+        children =[
+            html.Div(id="modelSummaryTitle",className="modelSummaryTitle",children="Model Summary"),
+            html.Div(
+                id = 'modelNumbersDiv',
+                className = 'modelNumbersDiv',
+                children = [
+                    html.Div(
+                        id='modelNumbersText',
+                        className='modelNumbersText',
+                        children=['Model Statistics']
+                    ),
+                    daq.LEDDisplay(
+                        id="countDisplayModelAccuracy",
+                        className='countDisplayModelAccuracy',
+                        value=0.96,
+                        color='#FFFFFF',
+                        backgroundColor="#0069A9",
+                        size=50,
+                        label={
+                            "label": "Accuracy",
+                            "style":{
+                                "font-size":"18px",
+                                "color": "#373936",
+                                "font-weight": "bold",
+                                "margin-bottom": "-20px"
+                            }
+                        }
+                    ),
+
+                    daq.LEDDisplay(
+                        id="countDisplayModelPrecision",
+                        className='countDisplayModelPrecision',
+                        value=0.92,
+                        color='#FFFFFF',
+                        backgroundColor="#0069A9",
+                        size=50,
+                        label={
+                            "label": "Precision",
+                            "style":{
+                                "font-size":"18px",
+                                "color": "#373936",
+                                "font-weight": "bold",
+                                "margin-bottom": "-20px"
+                            }
+                        }
+                    ),
+                    daq.LEDDisplay(
+                        id="countDisplayModelRecall",
+                        className='countDisplayModelRecall',
+                        value=0.81,
+                        color='#FFFFFF',
+                        backgroundColor="#0069A9",
+                        size=50,
+                        label={
+                            "label": "Recall",
+                            "style": {
+                                "font-size": "18px",
+                                "color": "#373936",
+                                "font-weight": "bold",
+                                "margin-bottom": "-20px"
+                            }
+                        }
+                    ),
+                ]
+            ),
+            html.Div(
+                id = 'modelPlotsDiv',
+                className = 'modelPlotsDiv',
+                children=[
+                    dcc.Graph(
+                        id = 'accuracyPlot',
+                        className= 'accuracyPlot',
+                        figure = {
+                            'data': [
+                                {'x': list(range(len(lossList[1]))),
+                                 'y': lossList[1],
+                                 'name': 'Loss'},
+                                {'x': list(range(len(lossList[1]))),
+                                 'y': lossList[3],
+                                 'name': 'Loss Validation'
+                                 }
+                            ],
+                            'layout': {
+                                'title': 'Model Accuracy Graph',
+                                "titlefont": {
+                                    "size": 30
+                                },
+                                'paper_bgcolor': '#E4FED7',
+                                'font': {
+                                    'color': '#373936'
+                                },
+                                'xaxis': {
+                                    'title': 'Number of Iterations'
+                                },
+                                'yaxis': {
+                                    'title': 'Accuracy',
+                                    'type' : 'linear',
+                                    'autorange': False,
+                                    'range': [0.05,1.1],
+                                    'fixedrange': True
+                                }
+                            }
+                        }
+
+                    ),
+                    dcc.Graph(
+                        id='precisionPlot',
+                        className='precisionPlot',
+                        figure={
+                            'data': [
+                                {'x': list(range(len(lossList[0]))),
+                                 'y': lossList[0],
+                                 'name': 'Loss'},
+                                {'x': list(range(len(lossList[0]))),
+                                 'y': lossList[2],
+                                 'name': 'Loss Validation'
+                                }
+
+                            ],
+                            'layout': {
+                                'title': 'Model Precision Graph',
+                                "titlefont": {
+                                    "size": 30
+                                },
+                                'paper_bgcolor': '#E4FED7',
+                                'font': {
+                                    'color': '#373936'
+                                },
+                                'xaxis': {
+                                    'title': 'Number of Iterations'
+                                },
+                                'yaxis': {
+                                    'title' : 'Precision',
+                                    'type': 'linear',
+                                    'autorange': False,
+                                    'range': [-0.1, 3 ],
+                                    'fixedrange': True
+                                }
+                            }
+                        }
+
+                    )
+                ]
 
 
-
+            )
         ]
     )
 

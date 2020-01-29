@@ -20,9 +20,15 @@ def makeTable(inputDF, infected):
 
     inputDF['id'] = inputDF['id']+1
 
-    table_header = [
-        html.Thead(html.Tr([html.Th("ID"), html.Th("Leaf"), html.Th("Probability of being Infected/Healthy")]))
-    ]
+    if infected:
+        table_header = [
+            html.Thead(html.Tr([html.Th("ID"), html.Th("Leaf"), html.Th("Probability of having Bacterial Spots")]))
+        ]
+
+    else:
+        table_header = [
+            html.Thead(html.Tr([html.Th("ID"), html.Th("Leaf"), html.Th("Probability of NOT having Bacterial Spots")]))
+        ]
 
     rows1, rows2,rows3 = [],[],[]
 

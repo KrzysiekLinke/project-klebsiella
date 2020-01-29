@@ -38,12 +38,7 @@ def countDiv(data):
                             html.Div(
                                 id='firstTextCountDiv',
                                 className='firstTextCountDiv',
-                                children=['Number of Infected Leaves', html.Br(), 'Per Plant Type']
-                            ),
-                            html.Div(
-                                id='secondTextCountDiv',
-                                className='secondTextCountDiv',
-                                children=['Count', html.Br(),html.Br()]
+                                children=['Number of Leaves with Bacterial Spots']
                             ),
                             daq.LEDDisplay(
                                 id="countDisplay",
@@ -52,7 +47,14 @@ def countDiv(data):
                                 color='#FFFFFF',
                                 backgroundColor="#0069A9",
                                 size=50,
-                                label='Number',
+                                label={
+                                    "label": "Number",
+                                    "style":{
+                                        "font-size":"16px",
+                                        "color": "#373936",
+                                        "font-weight": "bold"
+                                    }
+                                },
                             ),
                             daq.LEDDisplay(
                                 id="countDisplayPercentage",
@@ -61,7 +63,14 @@ def countDiv(data):
                                 color='#FFFFFF',
                                 backgroundColor="#0069A9",
                                 size=50,
-                                label='Percentage'
+                                label={
+                                    "label": "Probability",
+                                    "style":{
+                                        "font-size":"16px",
+                                        "color": "#373936",
+                                        "font-weight": "bold"
+                                    }
+                                }
                             )
                         ]
                     )
@@ -126,17 +135,17 @@ def barChart(data):
             className='barChart',
             figure={
                 'data': [
-                    {'x': ['Healthy'],
+                    {'x': ['Non-Bacterial Spots'],
                      'y': [int(len(data) - data[['isInfectedFlag']].sum())],
-                     'type': 'bar', 'name': 'Healthy'},
-                    {'x': ['Infected'],
+                     'type': 'bar', 'name': 'Non-Bacterial'},
+                    {'x': ['Bacterial Spots'],
                      'y': [int(data[['isInfectedFlag']].sum())],
-                     'type': 'bar', 'name': 'Infected'
+                     'type': 'bar', 'name': 'Bacterial'
                      }
 
                 ],
                 'layout': {
-                    'title': 'Bar Plot Counting The Number Of Infected Leaves',
+                    'title': 'The Number Of Leaves with Bacterial Spots',
                     'xaxis': {
                         'title': 'Predicted Values Images'
                     },
@@ -174,13 +183,13 @@ def pieChart(data):
             className='pieChart',
             figure={
                 'data': [
-                    {'labels': ['Healthy', 'Infected'],
+                    {'labels': ['Non-Bacterial', 'Bacterial'],
                      'values': [int(len(data) - data[['isInfectedFlag']].sum()), int(data[['isInfectedFlag']].sum())],
                      'type': 'pie', 'name': 'probGraph'},
 
                 ],
                 'layout': {
-                    'title': 'PieChart Distribution Infected Leaves',
+                    'title': 'Distribution of Bacterial Spots on Leaves',
                     "titlefont": {
                         "size": 30
                     },

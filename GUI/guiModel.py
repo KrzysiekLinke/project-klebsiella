@@ -19,6 +19,10 @@ def readImages(folderPath):
 def predictInfection(folderPath):
 
     data = readImages(folderPath)
-    model = tf.keras.models.load_model(str(pathlib.Path(__file__).parent.resolve()) + '/FirstCNN.h5')
+
+    #dataScaled = data.astype('float32')
+    #dataScaled /= 255
+
+    model = tf.keras.models.load_model(str(pathlib.Path(__file__).parent.resolve()) + '/CNN_with_weights.h5')
 
     return [model.predict(data), model.predict_classes(data)]
