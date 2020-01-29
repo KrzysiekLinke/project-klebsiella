@@ -46,15 +46,16 @@ def computeBackend(pathTestFolder):
     modelOutput = predictInfection(pathTestFolder)
 
     dataDF['isInfectedPercentage'], dataDF['isInfectedFlag'] = modelOutput
+    dataDF['id'] = dataDF['id].astype(int) + 1
 
-    ranges = np.linspace(0, 1, 11)
+    ranges = np.linspace(-0.000000000000000001, 1, 11)
 
     df = dataDF.groupby(pd.cut(dataDF['isInfectedPercentage'], ranges)).count()['isInfectedPercentage']
     pd_df = pd.DataFrame({'Range': df.index, 'Count': df.values})
 
     readDF = dataDF.copy(deep=True)
     readDF['id'] = '#' + dataDF['id'].astype(str)
-    readDF.to_csv(str(pathlib.Path(__file__).parent.resolve()) + '/assets/imagesTextFile.csv', sep=';')
+    readDF.to_csv(str(pathlib.Path(__file__).parent.resolve()) + '/assets/imagesTextFile.csv', sep=';',index=False)
 
     del df, readDF
 
@@ -434,7 +435,6 @@ def appContainer(pathTestFolder, error):
     data, pdDF, infectedDF, healthyDF, error2, error3 = computeBackend(pathTestFolder)
     dataset = pd.read_pickle("Prescriptive_data_nn.pkl")
     lossList = pd.read_pickle("loss_acc_CNN_weights")
-    print(error3)
 
     return (
         html.Div(
