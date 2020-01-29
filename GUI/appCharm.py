@@ -45,15 +45,16 @@ def computeBackend(pathTestFolder):
     modelOutput = predictInfection(pathTestFolder)
 
     dataDF['isInfectedPercentage'], dataDF['isInfectedFlag'] = modelOutput
+    dataDF['id'] = dataDF['id].astype(int) + 1
 
-    ranges = np.linspace(0,1,11)
+    ranges = np.linspace(-0.00000000001,1,11)
 
     df = dataDF.groupby(pd.cut(dataDF['isInfectedPercentage'], ranges)).count()['isInfectedPercentage']
     pd_df = pd.DataFrame({'Range': df.index, 'Count': df.values})
 
     readDF = dataDF.copy(deep = True)
     readDF['id'] = '#' + dataDF['id'].astype(str)
-    readDF.to_csv(str(pathlib.Path(__file__).parent.resolve()) + '/assets/imagesTextFile.csv', sep = ';')
+    readDF.to_csv(str(pathlib.Path(__file__).parent.resolve()) + '/assets/imagesTextFile.csv', sep = ';', index = False)
 
     del df, readDF
 
@@ -428,7 +429,6 @@ def createLowerBanner():
 def appContainer(pathTestFolder,error):
     global data, pdDF,infectedDF,healthyDF,dataset,lossList
     data, pdDF,infectedDF, healthyDF, error2, error3 = computeBackend(pathTestFolder)
-    print("PAST THAT!!!")
     dataset = pd.read_pickle("Prescriptive_data_nn.pkl")
     lossList = pd.read_pickle("loss_acc_CNN_weights")
 
@@ -461,7 +461,6 @@ def appContainer(pathTestFolder,error):
                 dcc.ConfirmDialog(id ='dialogue',message="File Not Found, Using Default Directory", displayed=error),
                 dcc.ConfirmDialog(id='dialogue2', message="Folder has no images, please insert images into this directory for it to be analysed", displayed=error3),
                 html.Div(id='fakeDiv'),
-                print("NEARRRRING END!!!!")
             ]
         )
     )
