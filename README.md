@@ -62,8 +62,17 @@ The loading of the server may take a while, it is normal as it needs to process 
 After a while, the DSS is loaded and ready for action. 
 
 
-##Extra information
+## Extra information
 
 ### Text File Images
 
 Every time a new file is uploaded or the server starts anew, a text file will be generated, where all information is gathered on the prediction of bacterial spots for these images. This includes image names. 
+
+### Too long of a prediction
+
+There are multiple models one can try with this GUI. If the VGG network is too much for the computer to handle, the user has always the option to switch to a different model. The file for this model is named CNN_with_weights.h5. A few changes have to be made however to the guiModel.py file. First: the resize should happen for size (224,224) instead of (32,32). Second, the following lines have to be uncommented:
+    - dataScaled = data.astype('float32')
+    - dataScaled /= 255
+Also the file name should be changed to: CNN_with_weights.h5.
+
+Then everything should still work, but with a different model. 
